@@ -8,7 +8,7 @@ export default function SelectSection() {
       <ul className=" d-flex justify-content-between w-75">
         <li className="list-group-item">
           <Link className="nav-link" to={"/home/shirts"}>
-            {section == "shirts" ? (
+            {section === "shirts" ? (
               <button className="bg-success text-white border-1 rounded-3 ">shirts</button>
             ) : (
               <button className="bg-white  border-1 rounded-3 ">shirts</button>
@@ -19,7 +19,7 @@ export default function SelectSection() {
         <Link to={"/home/trousers"}>
           {" "}
           <li className="list-group-item">
-            {section == "trousers" ? (
+            {section === "trousers" ? (
               <button className="bg-success text-white border-1 rounded-3 ">
               trousers
               </button>
@@ -30,7 +30,7 @@ export default function SelectSection() {
         </Link>
         <li className="list-group-item">
           <Link className="nav-link" to={"/home/shoes"}>
-            {section == "shoes" ? (
+            {section === "shoes" ? (
               <button className="bg-success text-white border-1 rounded-3 ">Shoes</button>
             ) : (
               <button className="bg-white  border-1 rounded-3 ">Shoes</button>

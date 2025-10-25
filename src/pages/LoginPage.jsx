@@ -23,18 +23,21 @@ const onSubmit =(data)=>alert(JSON.stringify(data))
           <h3 className="text-center fw-400"> welcome to ThriftZone</h3>
         
           <div className="form-group w-75 ">
-            <input  {...register('number'),{
+            <input  {...register('number',{
               required:true,
-              maxLength: 9,
-              minLength:9
-            }}
+              maxLength: 10,
+              minLength:10
+            })}
               className="form-control w-100 p-2 rounded-4"
               type="text"
               placeholder="phone number"
             ></input>
-            {errors.number && errors.number.type==='required'&&(<span className='text-danger' role='alert'>
+            <div className='m-1'>
+               {errors.number && errors.number.type==='required'&&(<span className='text-danger' role='alert'>
             please enter number
             </span>)}
+            </div>
+           
               {errors.number && errors.number.type==='maxLength'&&(<span className='text-danger' role='alert'>
           please enter valid number
             </span>)}
@@ -44,11 +47,25 @@ const onSubmit =(data)=>alert(JSON.stringify(data))
             
           </div>
           <div className="form-group w-75">
-            <input    {...register('password',)}
+            <input    {...register('password',{
+              required: true,
+              minength: 8,
+            
+            })}
               className="form-control w-100 p-2  rounded-4"
               type="password"
               placeholder="password"
             ></input>
+            <div className='m-1'>
+                    {errors.password && errors.password.type==='required'&&(<span className='text-danger' role='alert'>
+               enter password
+            </span>)}
+            </div>
+           
+            
+                   {errors.password && errors.password.type==='minLength'&&(<span className='text-danger'd role='alert'>
+        password not valid
+            </span>)}
 
           </div>
 
