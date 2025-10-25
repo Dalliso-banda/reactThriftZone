@@ -76,9 +76,9 @@ export default function SignUpPage() {
                    {/* this is the part where the bloody  */}
       
             <div   className='m-1'>
-              {errors.number&&errors.number.type==='required'&&(<span className='text-danger'>enter  password</span>)}
+              {errors.password&&errors.password.type==='required'&&(<span className='text-danger'>enter  password</span>)}
        
-          {errors.number&&errors.number.type==='minLength'&&(<span className='text-danger'>password must be 8 characters or more</span>)}
+          {errors.password&&errors.password.type==='minLength'&&(<span className='text-danger'>password must be 8 characters or more</span>)}
             </div>
           </div>
         <p className='p-g-0 m-0' >
