@@ -6,6 +6,7 @@ import Profile from './pages/Profile';
 import SignUpPage from './pages/signUp';
 import Gallery from './pages/galleryView'
 import PostPage from './pages/PostPage';
+import Cart from './pages/cart'
 import {createBrowserRouter,RouterProvider} from 'react-router-dom';
 
 
@@ -38,6 +39,9 @@ const router = createBrowserRouter([
              {
             path:'/gallery',
             element:<Gallery/>
+           },     {
+            path:'/cart',
+            element:<Cart/>
            },
 
 ])

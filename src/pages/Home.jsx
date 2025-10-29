@@ -3,7 +3,30 @@ import UperNav from "../components/uperNav";
 import BottomNav from "../components/bootomNav"
 import { Link } from "react-router-dom";
 import SelectSection from "../components/selectSection";
+import { useEffect, useState } from "react";
+import { Image } from "react-bootstrap";
+import axios from "axios";
 function HomePage() {
+  const [items,setItems]=useState()
+
+  useEffect(
+   ()=>{
+    const fetchStock = async ()=>{
+    
+        try{
+          const response= await axios.get('https://thriftzonezm.xyz/getStock')
+
+         
+          setItems(response.data)
+        }catch(error){
+          alert(error)
+   }
+
+   }
+      fetchStock();
+  },[items]
+  )
+
   return (
     <>
     <UperNav/>
@@ -12,15 +35,16 @@ function HomePage() {
         <h1>shirts</h1>
     <SelectSection/>
         <div className="row">
-          <div className="col-6">
-            <div className=" card ">
-              <img src={test}></img>
+       {items&&( items.map((item,id)=> <div className="col-6">
+            <div className=" card " key={id}>
+              <Image src= {`https:thriftzonezm.xyz/stock/${item.stock_img}`}></Image>
+              
 
               <div className="card-body ">
-                <h5 className="card-title">k200</h5>
-                <h5 className="card-title">k200</h5>
+                <h6 className="card-title">{item.itemName}</h6>
+                <h6 className="card-title fw-bolder text-success">k{item.price}</h6>
 
-                <button className="rounded-2 btn-primary  border-1 border-success p-0 m-1 w-75 bg-success-subtle text-success">
+                <button className="rounded-2 btn-primary  border-1 border-success p-0 m-1 w-75 bg-success-subtle text-dark">
                   buy
                 </button>
 
@@ -39,37 +63,9 @@ function HomePage() {
                 </svg>
               </div>
             </div>
-          </div>
-          <div className="col-6">
-            <div className=" card ">
-     
-              <img src={test}></img>
-        
-              <div className="card-body ">
-                <h5 className="card-title">k200</h5>
-                <h5 className="card-title">k200</h5>
-
-                <button className="rounded-2 btn-primary  border-1 border-success p-0 m-1 w-75 bg-success-subtle text-success">
-                  buy
-                </button>
-   <Link to ={'/gallery'}>
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="green"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
-                </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
+          </div>))
+}
+       
         </div>
       </div>
       <BottomNav/>
