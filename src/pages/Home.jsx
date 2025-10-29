@@ -6,9 +6,18 @@ import SelectSection from "../components/selectSection";
 import { useEffect, useState } from "react";
 import { Image } from "react-bootstrap";
 import axios from "axios";
+import { useParams } from "react-router-dom";
 function HomePage() {
-  const [items,setItems]=useState()
+  const [items,setItems]=useState([])
+  const [itemInfo,setItemInfo]=useState('')
 
+
+ let {section}= useParams();
+ 
+
+ const shirts=[]
+ const trousers=[]
+ const shoes=[]
   useEffect(
    ()=>{
     const fetchStock = async ()=>{
@@ -16,17 +25,51 @@ function HomePage() {
         try{
           const response= await axios.get('https://thriftzonezm.xyz/getStock')
 
-         
-          setItems(response.data)
+         const stock= response.data;
+
+        await stock.forEach((item)=>{
+
+        
+            if(item.type=='shirts')
+               shirts.push(item)
+            if(item.type==='trousers')
+              trousers.push(item)
+            if(item.type==='shoes')
+               shoes.push(item) 
+         })
+
+         if(!section)
+          setItems(stock)
+        if(section=='shirts')
+          setItems(shirts)
+        if(section=='trousers')
+           setItems(trousers)
+        if(section=='shoes')
+          setItems(shoes)
+   
         }catch(error){
           alert(error)
    }
 
+  
+
    }
       fetchStock();
-  },[items]
+  },[items,section]
   )
+  useEffect(()=>{
+      alert(itemInfo)
+  },[itemInfo])
+  const getItemInfo=(itemId)=> {
+  
+  alert(itemId)
+    setItemInfo(itemId)
+  }
+ 
 
+
+
+  
   return (
     <>
     <UperNav/>
@@ -34,18 +77,18 @@ function HomePage() {
         <br></br>
         <h1>shirts</h1>
     <SelectSection/>
-        <div className="row">
-       {items&&( items.map((item,id)=> <div className="col-6">
-            <div className=" card " key={id}>
-              <Image src= {`https:thriftzonezm.xyz/stock/${item.stock_img}`}></Image>
+        <div className="row mb-5">
+       {items&&( items.map((item)=> <div className="col-6">
+            <div className=" card m-1" key={item.id} >
+              <Image className="" src= {`https:thriftzonezm.xyz/stock/${item.stock_img}`}></Image>
               
 
               <div className="card-body ">
                 <h6 className="card-title">{item.itemName}</h6>
                 <h6 className="card-title fw-bolder text-success">k{item.price}</h6>
 
-                <button className="rounded-2 btn-primary  border-1 border-success p-0 m-1 w-75 bg-success-subtle text-dark">
-                  buy
+                <button onClick={()=>alert(item.id)} className="rounded-2 btn-primary  border-1 border-success p-0 m-1 w-75 bg-success-subtle text-dark">
+                  + cart 
                 </button>
 
                 <svg
