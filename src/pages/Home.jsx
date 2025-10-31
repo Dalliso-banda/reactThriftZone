@@ -10,34 +10,26 @@ import { useParams } from "react-router-dom";
 function HomePage() {
   const [items,setItems]=useState([])
   const [itemInfo,setItemInfo]=useState('')
+  const [loading,isLoading]=useState(false)
 
 
  let {section}= useParams();
  
 
- const shirts=[]
- const trousers=[]
- const shoes=[]
   useEffect(
    ()=>{
     const fetchStock = async ()=>{
-    
+       alert('first triale     ')
         try{
+          isLoading(true)
           const response= await axios.get('https://thriftzonezm.xyz/getStock')
 
          const stock= response.data;
 
-        await stock.forEach((item)=>{
-
-        
-            if(item.type=='shirts')
-               shirts.push(item)
-            if(item.type==='trousers')
-              trousers.push(item)
-            if(item.type==='shoes')
-               shoes.push(item) 
-         })
-
+        const shirts = stock.filter(item=>item.type==='shirts')
+          const trousers = stock.filter(item=>item.type==='trousers')
+            const shoes = stock.filter(item=>item.type==='shoes')
+          isLoading(false)
          if(!section)
           setItems(stock)
         if(section=='shirts')
@@ -55,19 +47,13 @@ function HomePage() {
 
    }
       fetchStock();
-  },[items,section]
+  },[section]
   )
-  useEffect(()=>{
-      alert(itemInfo)
-  },[itemInfo])
-  const getItemInfo=(itemId)=> {
-  
-  alert(itemId)
-    setItemInfo(itemId)
-  }
- 
 
 
+
+      if(isLoading)
+        return <h1>loading..</h1>
 
   
   return (
