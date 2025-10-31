@@ -4,13 +4,14 @@ import BottomNav from "../components/bootomNav"
 import { Link } from "react-router-dom";
 import SelectSection from "../components/selectSection";
 import { useEffect, useState } from "react";
-import { Image } from "react-bootstrap";
+import { Image, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 function HomePage() {
   const [items,setItems]=useState([])
   const [itemInfo,setItemInfo]=useState('')
-  const [loading,isLoading]=useState(false)
+  const [loading,setLoading]=useState(false)
+
 
 
  let {section}= useParams();
@@ -19,9 +20,10 @@ function HomePage() {
   useEffect(
    ()=>{
     const fetchStock = async ()=>{
-       alert('first triale     ')
+      setLoading(true)
+      
         try{
-          isLoading(true)
+          
           const response= await axios.get('https://thriftzonezm.xyz/getStock')
 
          const stock= response.data;
@@ -29,7 +31,7 @@ function HomePage() {
         const shirts = stock.filter(item=>item.type==='shirts')
           const trousers = stock.filter(item=>item.type==='trousers')
             const shoes = stock.filter(item=>item.type==='shoes')
-          isLoading(false)
+          setLoading(false)
          if(!section)
           setItems(stock)
         if(section=='shirts')
@@ -42,18 +44,25 @@ function HomePage() {
         }catch(error){
           alert(error)
    }
+   finally{
+      setLoading(false)
+   }
 
   
 
    }
+
+
       fetchStock();
+
+     
+       
   },[section]
   )
 
 
-
-      if(isLoading)
-        return <h1>loading..</h1>
+   
+      
 
   
   return (
@@ -64,9 +73,14 @@ function HomePage() {
         <h1>shirts</h1>
     <SelectSection/>
         <div className="row mb-5">
-       {items&&( items.map((item)=> <div className="col-6">
+       {loading?<div className=" mt-5 text-center">
+
+        <Spinner variant='success' animation="border" role="status">
+
+       </Spinner>
+       </div>:items&&( items.map((item)=> <div className="col-6">
             <div className=" card m-1" key={item.id} >
-              <Image className="" src= {`https:thriftzonezm.xyz/stock/${item.stock_img}`}></Image>
+              <Image className="" alt='stock photo'src= {`https:thriftzonezm.xyz/stock/${item.stock_img}`}></Image>
               
 
               <div className="card-body ">
