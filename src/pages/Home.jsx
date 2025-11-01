@@ -1,4 +1,3 @@
-import test from "../../public/test.jpg";
 import UperNav from "../components/uperNav";
 import BottomNav from "../components/bootomNav"
 import { Link } from "react-router-dom";
@@ -8,14 +7,14 @@ import { Image, Spinner } from "react-bootstrap";
 import axios from "axios";
 import { useParams } from "react-router-dom";
 function HomePage() {
-  const [items,setItems]=useState([])
-  const [itemInfo,setItemInfo]=useState('')
-  const [loading,setLoading]=useState(false)
+  const [items,setItems]=useState([]);
+  const [loading,setLoading]=useState(false);
 
 
 
  let {section}= useParams();
- 
+
+
 
   useEffect(
    ()=>{
@@ -47,30 +46,23 @@ function HomePage() {
    finally{
       setLoading(false)
    }
-
-  
-
    }
-
-
       fetchStock();
-
-     
        
   },[section]
   )
 
 
-   
-      
-
+     const handleClick=(stockId)=>{ return stockId};
+     
+       
   
   return (
     <>
     <UperNav/>
       <div className="container m-0">
         <br></br>
-        <h1>shirts</h1>
+        <h1 className="text-success">Stock</h1>
     <SelectSection/>
         <div className="row mb-5">
        {loading?<div className=" mt-5 text-center">
@@ -87,10 +79,9 @@ function HomePage() {
                 <h6 className="card-title">{item.itemName}</h6>
                 <h6 className="card-title fw-bolder text-success">k{item.price}</h6>
 
-                <button onClick={()=>alert(item.id)} className="rounded-2 btn-primary  border-1 border-success p-0 m-1 w-75 bg-success-subtle text-dark">
+                <button onClick={()=>handleClick(item.id)}  className="rounded-2 btn-primary  border-1 border-success p-0 m-1 w-75 bg-success-subtle text-dark">
                   + cart 
                 </button>
-
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="20"
