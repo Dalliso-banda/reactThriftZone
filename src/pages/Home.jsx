@@ -3,19 +3,21 @@ import BottomNav from "../components/bootomNav"
 import SelectSection from "../components/selectSection";
 import { useEffect, useState } from "react";
 import { Image, Spinner } from "react-bootstrap";
-import { useCart }  from '../components/CartContext'
+import { useCart } from "../components/CartContext";
 import axios from "axios";
 
 import { useParams } from "react-router-dom";
 
 
 
+
 function HomePage() {
   const [items,setItems]=useState([]);
   const [loading,setLoading]=useState(false);
-   const {addTocart}=useCart()
-   console.log(addTocart)
- let {section}= useParams();
+  
+     
+
+    let {section}= useParams();
 
 
 
