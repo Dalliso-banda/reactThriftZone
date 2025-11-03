@@ -1,39 +1,85 @@
+import { useForm } from "react-hook-form";
 import UperNav from "../components/uperNav";
+import { useState } from "react";
 export default function PostPage() {
+
+  const [image,src]=useState('')
+  const {register,handleSubmit,formState:{errors}}= useForm()
+
+  const onSubmit=(data)=>{
+
+    alert('hit')
+   
+ 
+    src(data.itemImg[0])
+  }
+
+  alert(image[0])
+
   return (
     <>
     <UperNav/>
-      <div className="d-flex justify-content-center  flex-column gap-[] align-items-center  vw-100 vh-100">
+    <img src={image} alt="dumby text"></img>
+      <div className="d-flex justify-content-center  flex-column gap-2 align-items-center  vw-100 vh-100">
         <img className="w-25 rounded-circle " src="/test.jpg"></img>
-        <form className="d-flex flex-column gap-4 w-100 align-items-center">
+        <form onSubmit={handleSubmit(onSubmit)} className="d-flex flex-column gap-4 w-100 align-items-center">
           <h3 className="text-center m-3 fw-400"> Create Post</h3>
 
           <div className="form-group w-75 ">
-            <input
+            <input  {...register('price',{
+              required:true
+            })}
               className="form-control w-100 p-2 rounded-4"
               type="number"
               placeholder="price"
             ></input>
+
+            {/* these are bloody errors lol*/}
+        <div className="m-1">
+          {errors.price&&errors.price.type==='required'&&(<span role="alert" className="text-danger">enter price</span>)}
+        </div>
+
           </div>
           <div className="form-group w-75">
-            <input
+            <input   {...register('itemName',{
+              required: true
+            })}
+
               className="form-control w-100 p-2  rounded-4"
               type="text"
               placeholder="name of clothes"
             ></input>
+                     {/* these are bloody errors lol*/}
+        <div className="m-1">
+          {errors.itemName&&errors.itemName.type==='required'&&(<span role="alert" className="text-danger">enter price</span>)}
+        </div>
           </div>
    
           <div className="form-group w-75">
      
-              <input accept="image/*" type="file"   className="form-control w-100 p-2  rounded-4" name="itemImg" required></input>
+              <input {...register('itemImg',{
+                required: true
+              })} accept="image/*" type="file"   className="form-control w-100 p-2  rounded-4" name="itemImg" ></input>
+
+                 {/* these are bloody errors lol*/}
+        <div className="m-1">
+          {errors.itemImg&&errors.itemImg.type==='required'&&(<span role="alert" className="text-danger">enter price</span>)}
+        </div>
           </div>
-            <select name="category" className="form-select w-25 m-4 align-self-start"required>
+            <select name="category" className="form-select w-25 m-4 align-self-start"  {...register('category',{
+
+             required: true
+            })}>
                <option></option>
              <option>shirts</option>
               <option>trousers</option>
               <option>shoes</option>
              
            </select>
+                  {/* these are bloody errors lol*/}
+        <div className="m-1">
+          {errors.category&&errors.category.type==='required'&&(<span role="alert" className="text-danger">enter price</span>)}
+        </div>
           <p className="p-g-0 m-0"></p>
 
           <button

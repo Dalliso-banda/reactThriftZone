@@ -7,7 +7,7 @@ export default function LoginPage() {
 
 
 
-  const {register,handleSubmit,formState:erros}= useForm()
+  const {register,handleSubmit,formState:{errors}}= useForm()
    
 
 
@@ -23,24 +23,52 @@ const onSubmit =(data)=>alert(JSON.stringify(data))
           <h3 className="text-center fw-400"> welcome to ThriftZone</h3>
         
           <div className="form-group w-75 ">
-            <input  {...register('phone number')}
+            <input  {...register('number',{
+              required:true,
+              maxLength: 10,
+              minLength:10
+            })}
               className="form-control w-100 p-2 rounded-4"
               type="text"
               placeholder="phone number"
             ></input>
+            <div className='m-1'>
+               {errors.number && errors.number.type==='required'&&(<span className='text-danger' role='alert'>
+            please enter number
+            </span>)}
+            </div>
+           
+              {errors.number && errors.number.type==='maxLength'&&(<span className='text-danger' role='alert'>
+          please enter valid number
+            </span>)}
+                   {errors.number && errors.number.type==='minLength'&&(<span className='text-danger'd role='alert'>
+          please enter valid number
+            </span>)}
             
           </div>
           <div className="form-group w-75">
-            <input    {...register('password',)}
+            <input    {...register('password',{
+              required: true,
+              minength: 8,
+            
+            })}
               className="form-control w-100 p-2  rounded-4"
               type="password"
               placeholder="password"
             ></input>
+            <div className='m-1'>
+                    {errors.password && errors.password.type==='required'&&(<span className='text-danger' role='alert'>
+               enter password
+            </span>)}
+            </div>
+           
+            
+                   {errors.password && errors.password.type==='minLength'&&(<span className='text-danger'd role='alert'>
+        password not valid
+            </span>)}
 
           </div>
-        <p className='p-g-0 m-0' >
-    
-        </p>
+
           <button  style={{background:'#487041f5'}} type='submit'className=" btn-outline-none  bg-opacity-75  rounded-4
            shadow-lg text-white fw-bolder border-1 p-2  rounded-3 w-75">
             Log In

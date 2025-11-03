@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 export default function Bottom() {
   return (
     <>
-      <div className="container bottom-0 position-fixed  bg-success">
+      <div className="container bottom-0 position-fixed  mt-5 bg-success">
         <nav className="navbar d-flex align-items-center  m-0 p-0 w-100 ">
 
 
