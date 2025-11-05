@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
 
-const CART_KEY = "thriftZoneCart";
+const CART_KEY = "thriftZoneCart2";
 
 export const CartContext = createContext();
 
@@ -31,8 +31,9 @@ export const CartProvider = ({ children }) => {
     }
   }, [cartState]);
 
+
   const addToCart = (product) => {
-    alert('gret')
+  
     setCartState((prevCart) => {
       const existing = prevCart.find((item) => item.id === product.id);
       if (existing) {
@@ -43,9 +44,10 @@ export const CartProvider = ({ children }) => {
             : item
         );
       }
-   
-      return [...prevCart, { ...product, quantity: 1 }];
+ 
+      return [...prevCart,{...product}]
     });
+
   };
 
   const removeCartItem = (productId) => {

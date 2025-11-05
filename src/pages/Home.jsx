@@ -15,7 +15,8 @@ function HomePage() {
   const [items,setItems]=useState([]);
   const [loading,setLoading]=useState(false);
   
-     
+     const {addToCart}= useCart()
+
 
     let {section}= useParams();
 
@@ -96,7 +97,7 @@ function HomePage() {
                     </h6>
 
                     <button
-                      onClick={() =>addTocart(item.id)}
+                      onClick={() =>addToCart({id:item.id,productImg:item.stock_img,name:item.itemName,price:item.price})}
                       className="rounded-2 btn-primary  border-1 border-success p-0 m-1 w-75 bg-success-subtle text-dark"
                     >
                       + cart
