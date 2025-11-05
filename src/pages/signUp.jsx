@@ -81,6 +81,20 @@ export default function SignUpPage() {
           {errors.password&&errors.password.type==='minLength'&&(<span className='text-danger'>password must be 8 characters or more</span>)}
             </div>
           </div>
+
+             <select name="accountType" className="form-select w-25 m-4 align-self-start"  {...register('accountType',{
+
+             required: true
+            })}>
+               <option>customer</option>
+             <option>stores</option>
+            
+             
+           </select>
+                  {/* these are bloody errors lol*/}
+        <div className="m-1">
+          {errors.accountType&&errors.accountType.type==='required'&&(<span role="alert" className="text-danger">enter price</span>)}
+        </div>
         <p className='p-g-0 m-0' >
     
         </p>
